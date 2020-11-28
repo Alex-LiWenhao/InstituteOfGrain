@@ -3,6 +3,7 @@ package com.alex.oss.controller;
 import com.alex.commonutils.R;
 import com.alex.oss.Service.OssService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("/eduoss/fileoss")
+@CrossOrigin
 public class OssController {
     @Autowired
     private OssService ossService;
