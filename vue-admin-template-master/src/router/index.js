@@ -66,6 +66,27 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: '/subject',
+    component: Layout,
+    redirect: '/subject/table',
+    name: '课程分类管理',
+    meta: { title: '课程分类管理', icon: 'example' },
+    children: [
+      {
+        path: 'table',
+        name: '课程分类列表',
+        component: () => import('@/views/edu/subject/list'),
+        meta: { title: '课程分类列表', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: '添加课程分类',
+        component: () => import('@/views/edu/subject/import'),
+        meta: { title: '添加课程分类', icon: 'tree' }
+      }
+    ]
+  },
  
   // 自己写的路由E
   {
