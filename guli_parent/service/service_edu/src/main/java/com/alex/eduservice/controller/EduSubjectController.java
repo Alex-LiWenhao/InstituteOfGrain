@@ -4,6 +4,7 @@ package com.alex.eduservice.controller;
 import com.alex.commonutils.R;
 import com.alex.eduservice.service.EduSubjectService;
 import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/eduservice/subject")
 @CrossOrigin
 public class EduSubjectController {
+    @Autowired
     private EduSubjectService subjectService;
 
     @PostMapping("addSubject")
