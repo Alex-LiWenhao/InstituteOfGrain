@@ -35,7 +35,7 @@ export default {
       fetchNodeList() {
         subject.getNestedTreeList().then(response => {
         if (response.success === true) {
-            this.subjectList = response.data.items
+            this.subjectList = response.data.list
         }
         })
       },
