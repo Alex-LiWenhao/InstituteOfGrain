@@ -17,7 +17,26 @@
         </el-form-item>
 
         <!-- 所属分类 TODO -->
-
+        <el-form-item label="课程分类">
+        <el-select
+            v-model="courseInfo.subjectParentId" 
+            placeholder="一级分类" @change="subjectLevelOneChanged">
+            <el-option
+                v-for="subject in subjectOneList"
+                :key="subject.id"
+                :label="subject.title"
+                :value="subject.id"/>
+        </el-select>
+        <el-select   
+            v-model="courseInfo.subjectId"      
+            placeholder="二级分类">
+            <el-option
+                v-for="subject in subjectTwoList"
+                :key="subject.id"
+                :label="subject.title"
+                :value="subject.id"/>
+        </el-select>
+        </el-form-item>
 
          <!-- 课程讲师 TODO -->
         <el-form-item label="课程讲师">
@@ -39,7 +58,7 @@
 
         <!-- 课程简介 TODO -->
         <el-form-item label="课程简介">
-            <el-input v-model="courseInfo.title" placeholder="课程简介"/>
+            <el-input v-model="courseInfo.description" placeholder="课程简介"/>
         </el-form-item>
 
         <!-- 课程封面 TODO -->
@@ -65,19 +84,40 @@ export default {
             courseInfo: {
                 title: '',
                 subjectId: '',
+                subjectParentId:'',
                 teacherId: '',
                 lessonNum: 0,
                 description: '',
                 cover: '',
                 price: 0
             },
-            teacherList:[]
+            teacherList:[],
+            subjectOneList:[],
+            subjectTwoList:[]
+
         }   
     },
     created() {
         this.getListTeacher()
+        this.getSubjectOne()
     },
     methods:{
+        subjectLevelOneChanged(value){
+            for(var i=0; i<this.subjectOneList.length;i++){
+                var subjectOne = this.subjectOneList[i];
+                if(subjectOne.id===value){
+                    this.subjectTwoList = this.subjectOneList[i].children
+                    //把二级分类id值清空
+                    this.courseInfo.subjectId = ''
+                }
+            }
+        },
+        getSubjectOne(){
+              subject.getNestedTreeList()
+                .then(response=>{
+                    this.subjectOneList=response.data.list
+                })  
+        },
        saveOrUpdate(){
         course.addCourseInfo(this.courseInfo)
             .then(response=>{
