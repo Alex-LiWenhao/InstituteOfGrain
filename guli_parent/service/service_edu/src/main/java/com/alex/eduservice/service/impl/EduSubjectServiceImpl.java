@@ -30,6 +30,13 @@ import java.util.List;
 @Service
 public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubject> implements EduSubjectService {
 
+    /**
+    *功能描述 读取Excel里面内容
+    * @author Alex
+    * @Date 2020/12/18 23:08
+    * @param [file, subjectService]
+    * @return void
+    */
     @Override
     public void saveSubject(MultipartFile file, EduSubjectService subjectService) {
         try {

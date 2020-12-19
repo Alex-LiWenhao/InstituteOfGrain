@@ -21,6 +21,13 @@ import org.springframework.util.StringUtils;
 @Service
 public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeacher> implements EduTeacherService {
 
+    /**
+    *功能描述 条件查询讲师
+    * @author Alex
+    * @Date 2020/12/18 23:08
+    * @param [pageParam, teacherQuery]
+    * @return void
+    */
     @Override
     public void teacherQuery(Page<EduTeacher> pageParam, TeacherQuery teacherQuery) {
         QueryWrapper<EduTeacher> queryWrapper = new QueryWrapper<>();

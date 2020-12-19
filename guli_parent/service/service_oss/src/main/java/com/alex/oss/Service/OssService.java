@@ -21,6 +21,13 @@ import java.util.UUID;
  */
 @Service
 public class OssService {
+    /**
+    *功能描述 上传文件到OSS云存储器
+    * @author Alex
+    * @Date 2020/12/18 22:59
+    * @param file
+    * @return java.lang.String
+    */
     public String uploadFileAvatar(MultipartFile file){
         String endpoint = ConstantPropertiesUtil.EDN_POINT;
         String keyid = ConstantPropertiesUtil.ACCESS_KEY_ID;

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @ClassName ConstantPropertiesUtil
- * @Description TODO :
+ * @Description TODO : 工具类获取配置文件内容
  * @Author Alex
  * @Date 2020/11/24 10:31
  * @Version 1.0

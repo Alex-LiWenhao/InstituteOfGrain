@@ -22,6 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class OssController {
     @Autowired
     private OssService ossService;
+    /**
+    *功能描述 获取前端传送过来的文件
+    * @author Alex
+    * @Date 2020/12/18 23:01
+    * @param file
+    * @return com.alex.commonutils.R
+    */
     @PostMapping
     public R uploadOssFile(MultipartFile file){
         String url = ossService.uploadFileAvatar(file);

@@ -15,12 +15,20 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class EduLoginController {
 
+    /**
+    *功能描述 登录
+    * @author Alex
+    * @Date 2020/12/18 23:03
+    * @param []
+    * @return com.alex.commonutils.R
+    */
     @PostMapping("login")
     public R login(){
 
         return R.ok().data("token","admin");
     }
 
+    //根据
     @GetMapping("info")
     public R info(){
         return R.ok().data("roles","[admin]")

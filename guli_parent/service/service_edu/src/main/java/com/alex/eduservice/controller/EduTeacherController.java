@@ -32,6 +32,13 @@ public class EduTeacherController {
     @Autowired
     private EduTeacherService teacherService;
 
+    /**
+    *功能描述 查询所有讲师列表
+    * @author Alex
+    * @Date 2020/12/18 23:04
+    * @param []
+    * @return com.alex.commonutils.R
+    */
     @ApiOperation(value = "所有讲师列表")
     @GetMapping()
     public R findAll(){
@@ -39,6 +46,13 @@ public class EduTeacherController {
         return R.ok().data("items", list);
     }
 
+    /**
+    *功能描述 根据讲师ID去删除讲师
+    * @author Alex
+    * @Date 2020/12/18 23:04
+    * @param [id]
+    * @return com.alex.commonutils.R
+    */
     @ApiOperation(value = "根据ID删除讲师")
     @DeleteMapping("{id}")
     public R removeById(
@@ -48,6 +62,13 @@ public class EduTeacherController {
         return R.ok();
     }
 
+    /**
+    *功能描述 根据传送过来的每页记录数和当前页码进行查询
+    * @author Alex
+    * @Date 2020/12/18 23:04
+    * @param [page, limit]
+    * @return com.alex.commonutils.R
+    */
     @ApiOperation(value = "分页讲师列表")
     @GetMapping("{page}/{limit}")
     public R pageList(@ApiParam(name = "page", value = "当前页码", required = true)
@@ -62,6 +83,13 @@ public class EduTeacherController {
         return R.ok().data("total", total).data("rows",records);
     }
 
+    /**
+    *功能描述  根据前端传送过来的条件进行条件查询
+    * @author Alex
+    * @Date 2020/12/18 23:05
+    * @param [current, limit, teacherQuery]
+    * @return com.alex.commonutils.R
+    */
     @ApiOperation(value = "讲师条件查询模块")
     @PostMapping("pageTeacherCondition/{current}/{limit}")
     public R pageTeacherCondition(
@@ -78,6 +106,13 @@ public class EduTeacherController {
         return R.ok().data("total", total).data("rows", records);
     }
 
+    /**
+    *功能描述 新增讲师
+    * @author Alex
+    * @Date 2020/12/18 23:06
+    * @param [eduTeacher]
+    * @return com.alex.commonutils.R
+    */
     @ApiOperation(value = "讲师新增模块")
     @PostMapping("addTeacher")
     public R addTeacher(@ApiParam(name = "eduTeacher",value = "传入对象",required = true)
@@ -91,6 +126,13 @@ public class EduTeacherController {
 
     }
 
+    /**
+    *功能描述 根据ID查询讲师
+    * @author Alex
+    * @Date 2020/12/18 23:06
+    * @param [id]
+    * @return com.alex.commonutils.R
+    */
     @ApiOperation(value = "根据ID查讲师")
     @GetMapping("getTeacher/{id}")
     public R getById(
@@ -100,6 +142,13 @@ public class EduTeacherController {
         return R.ok().data("teacher", teacher);
     }
 
+    /**
+    *功能描述 修改讲师
+    * @author Alex
+    * @Date 2020/12/18 23:07
+    * @param [eduTeacher]
+    * @return com.alex.commonutils.R
+    */
     @PostMapping("updateTeacher")
     public R updateTeacher(
             @ApiParam(name = "eduTeacher",value = "要修改内容", required = true)

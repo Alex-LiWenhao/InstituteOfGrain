@@ -27,12 +27,26 @@ public class EduSubjectController {
     @Autowired
     private EduSubjectService subjectService;
 
+    /**
+    *功能描述 通过Excel文件添加课程分类
+    * @author Alex
+    * @Date 2020/12/18 22:58
+    * @param file
+    * @return com.alex.commonutils.R
+    */
     @PostMapping("addSubject")
     public R addSubject(MultipartFile file){
         subjectService.saveSubject(file,subjectService);
         return R.ok();
     }
 
+    /**
+    *功能描述 得到所有课程
+    * @author Alex
+    * @Date 2020/12/18 22:59
+    * @param
+    * @return com.alex.commonutils.R
+    */
     @GetMapping("getAllSubject")
     public R getAllSubject(){
         List<OneSubject> list =  subjectService.getAllOneTwoSubject();
