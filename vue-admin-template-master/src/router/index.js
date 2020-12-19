@@ -29,7 +29,8 @@ export const constantRouterMap = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    name: 'Dashboard',
+    name: '主界面',
+    meta: { title: '主界面'},
     hidden: true,
     children: [{
       path: 'dashboard',
@@ -109,14 +110,14 @@ export const constantRouterMap = [
       },
       {
         path: 'info/:id',
-        name: 'EduCourseInfoEdit',
+        name: '编辑课程基本信息',
         component: () => import('@/views/edu/course/info'),
         meta: { title: '编辑课程基本信息', noCache: true },
         hidden: true
       },
       {
         path: 'chapter/:id',
-        name: 'EduCourseChapterEdit',
+        name: '编辑课程大纲',
         component: () => import('@/views/edu/course/chapter'),
         meta: { title: '编辑课程大纲', noCache: true },
         hidden: true
