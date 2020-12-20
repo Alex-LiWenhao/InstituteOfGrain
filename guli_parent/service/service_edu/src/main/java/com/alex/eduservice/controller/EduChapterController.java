@@ -53,7 +53,7 @@ public class EduChapterController {
     }
 
     /**
-    *功能描述 根据ID去查询章节并返回给前端
+    *功能描述 根据章节ID去查询章节并返回给前端
     * @author Alex
     * @Date 2020/12/20 14:01
     * @param id
@@ -77,25 +77,24 @@ public class EduChapterController {
         service.updateById(eduChapter);
         return R.ok();
     }
-
     /**
-    *功能描述 根据章节ID去删除章节
+    *功能描述
     * @author Alex
-    * @Date 2020/12/20 14:14
+    * @Date 2020/12/20 17:15
     * @param chapterId
     * @return com.alex.commonutils.R
     */
     @DeleteMapping("{chapterId}")
-    @RequestMapping()
-    public R deleteChapter(@PathVariable String chapterId){
+    public R deleteChapter(@PathVariable String chapterId) {
         boolean flag = service.deleteChapterById(chapterId);
-        if(flag){
+        if(flag) {
             return R.ok();
-        }else {
+        } else {
             return R.error();
         }
-
     }
+
+
 
 
 }

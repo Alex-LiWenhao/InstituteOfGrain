@@ -23,11 +23,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse> implements EduCourseService {
 
+    //课程描述注入
     @Autowired
     private EduCourseDescriptionService descriptionService;
 
     /**
-    *功能描述 插入courseInfo
+    *功能描述 添加课程基本信息的方法
     * @author Alex
     * @Date 2020/12/18 23:09
     * @param courseInfoVo
@@ -35,13 +36,18 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     */
     @Override
     public String saveCourseInfo(CourseInfoVo courseInfoVo) {
+        //1 向课程表添加课程基本信息
+        //CourseInfoVo对象转换eduCourse对象
         EduCourse eduCourse = new EduCourse();
         BeanUtils.copyProperties(courseInfoVo, eduCourse);
         int insert = baseMapper.insert(eduCourse);
         if(insert==0){
             throw new AlexException(20001, "插入失败");
         }
+        //获取添加之后课程id
         String cid = eduCourse.getId();
+        //2 向课程简介表添加课程简介
+        //edu_course_description
         EduCourseDescription eduCourseDescription = new EduCourseDescription();
         eduCourseDescription.setDescription(courseInfoVo.getDescription());
         eduCourseDescription.setId(cid);
@@ -50,7 +56,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     }
 
     /**
-    *功能描述 根据课程ID获取到课程内容
+    *功能描述 根据课程id查询课程基本信息
     * @author Alex
     * @Date 2020/12/19 14:38
     * @param courseId
@@ -75,12 +81,14 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     */
     @Override
     public void updateCourseInfo(CourseInfoVo courseInfoVo) {
+        //1 修改课程表
         EduCourse eduCourse = new EduCourse();
         BeanUtils.copyProperties(courseInfoVo, eduCourse);
         int i = baseMapper.updateById(eduCourse);
         if(i==0){
             throw new AlexException(20001, "修改失败");
         }
+        //2 修改描述表
         EduCourseDescription eduCourseDescription = new EduCourseDescription();
         eduCourseDescription.setDescription(courseInfoVo.getDescription());
         eduCourseDescription.setId(courseInfoVo.getId());

@@ -83,13 +83,17 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
     */
     @Override
     public boolean deleteChapterById(String chapterId) {
+        //根据chapterid章节id 查询小节表，如果查询数据，不进行删除
         QueryWrapper<EduVideo> wrapper = new QueryWrapper<>();
         wrapper.eq("chapter_id", chapterId);
         int count = videoService.count(wrapper);
-        if(count>0){
+        //判断
+        if(count>0){//查询出小节，不进行删除
             throw new AlexException(20001, "不能删除");
-        }else {
+        }else {//不能查询数据，进行删除
+            //删除章节
             int i = baseMapper.deleteById(chapterId);
+            //成功  1>0   0>0
             return i>0;
         }
     }
