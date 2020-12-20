@@ -19,13 +19,13 @@ export default {
     deleteTeacherById(id) {
         return request({
             url: `/eduservice/teacher/${id}`,
-            method: 'delete',
+            method: 'delete'
         })
     },
     getTeacherInfo(id) {
         return request({
             url: `/eduservice/teacher/getTeacher/${id}`,
-            method: 'get',
+            method: 'get'
         })
      },
     updateTeacher(teacher) { 
