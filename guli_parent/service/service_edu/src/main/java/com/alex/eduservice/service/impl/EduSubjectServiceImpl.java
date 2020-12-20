@@ -31,10 +31,10 @@ import java.util.List;
 public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubject> implements EduSubjectService {
 
     /**
-    *功能描述 读取Excel里面内容
+    *功能描述 读取Excel里面
     * @author Alex
     * @Date 2020/12/18 23:08
-    * @param [file, subjectService]
+    * @param file, subjectService
     * @return void
     */
     @Override
@@ -48,6 +48,13 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
 
     }
 
+    /**
+    *功能描述 获取一二级课程分类
+    * @author Alex
+    * @Date 2020/12/19 22:40
+    * @param []
+    * @return java.util.List<com.alex.eduservice.entity.subject.OneSubject>
+    */
     @Override
     public List<OneSubject> getAllOneTwoSubject() {
         QueryWrapper<EduSubject> wrapperOne = new QueryWrapper<>();

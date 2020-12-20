@@ -18,12 +18,19 @@ import org.springframework.context.annotation.Configuration;
 @MapperScan("com.alex.eduservice.mapper")
 public class MyBatisPlusConfig {
 
+    /**
+     * 逻辑删除插件
+     */
     @Bean
     public ISqlInjector sqlInjector(){
         return  new LogicSqlInjector();
     }
 
 
+
+    /**
+     * 分页插件
+     */
     @Bean
     public PaginationInterceptor paginationInterceptor(){
         return new PaginationInterceptor();

@@ -7,6 +7,7 @@ import com.alex.eduservice.entity.chapter.VideoVo;
 import com.alex.eduservice.mapper.EduChapterMapper;
 import com.alex.eduservice.service.EduChapterService;
 import com.alex.eduservice.service.EduVideoService;
+import com.alex.servicebase.AlexException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -44,13 +45,10 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         chapterwrapper.orderByAsc("sort", "id");
         List<EduChapter> chapters = baseMapper.selectList(chapterwrapper);
 
-
         QueryWrapper<EduVideo> videoWrapper = new QueryWrapper<>();
         videoWrapper.eq("course_id", courseId);
         videoWrapper.orderByAsc("sort","id");
         List<EduVideo> videos = videoService.list(videoWrapper);
-
-
 
         for (int i = 0; i < chapters.size(); i++) {
             ChapterVo chapterVo = new ChapterVo();
@@ -73,9 +71,26 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
 
 
         }
-
-
-
         return finalList;
+    }
+
+    /**
+    *功能描述 根据ID删除章节
+    * @author Alex
+    * @Date 2020/12/20 14:19
+    * @param
+    * @return
+    */
+    @Override
+    public boolean deleteChapterById(String chapterId) {
+        QueryWrapper<EduVideo> wrapper = new QueryWrapper<>();
+        wrapper.eq("chapter_id", chapterId);
+        int count = videoService.count(wrapper);
+        if(count>0){
+            throw new AlexException(20001, "不能删除");
+        }else {
+            int i = baseMapper.deleteById(chapterId);
+            return i>0;
+        }
     }
 }

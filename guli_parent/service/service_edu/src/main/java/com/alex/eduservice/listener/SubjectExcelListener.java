@@ -24,6 +24,13 @@ public class SubjectExcelListener extends AnalysisEventListener<SubjectData> {
         this.subjectService = subjectService;
     }
 
+    /**
+    *功能描述 读取excel内容，一行一行进行读取
+    * @author Alex
+    * @Date 2020/11/29 20:45
+    * @param subjectData, analysisContext
+    * @return void
+    */
     @Override
     public void invoke(SubjectData subjectData, AnalysisContext analysisContext) {
         if(subjectData==null){
