@@ -30,7 +30,7 @@
              <!-- 视频 -->
             <ul class="chanpterList videoList">
                 <li
-                    v-for="video in chapter.children"
+                    v-for="video in chapter.video"
                     :key="video.id">
                     <p>{{ video.title }}
                 <span class="acts">
@@ -65,10 +65,37 @@
             <el-button type="primary" @click="saveOrUpdate">确 定</el-button>
         </div>
     </el-dialog>
+
+    <!-- 添加和修改课时表单 -->
+    <el-dialog :visible.sync="dialogVideoFormVisible" title="添加课时">
+      <el-form :model="video" label-width="120px">
+        <el-form-item label="课时标题">
+          <el-input v-model="video.title"/>
+        </el-form-item>
+        <el-form-item label="课时排序">
+          <el-input-number v-model="video.sort" :min="0" controls-position="right"/>
+        </el-form-item>
+        <el-form-item label="是否免费">
+          <el-radio-group v-model="video.free">
+            <el-radio :label="true">免费</el-radio>
+            <el-radio :label="false">默认</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="上传视频">
+          <!-- TODO -->
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogVideoFormVisible = false">取 消</el-button>
+        <el-button :disabled="saveVideoBtnDisabled" type="primary" @click="saveOrUpdateVideo">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 <script>
 import chapter from '@/api/edu/chapter'
+import video from '@/api/edu/video'
 export default {
     data() {
         return {
@@ -76,9 +103,16 @@ export default {
             chapterVideoList:[],
             courseId:'',
             dialogChapterFormVisible: false, //是否显示章节表单
+            dialogVideoFormVisible: false,//是否显示小节表单
             chapter: {// 章节对象
                 title: '',
                 sort: 0
+            },
+            video: {
+                title: '',
+                sort: 0,
+                free: 0,
+                videoSourceId: ''
             }
         }
     },
@@ -89,6 +123,17 @@ export default {
         }
     },
     methods:{
+      //==================小结操作=======================
+      saveOrUpdateVideo(){
+        
+      },
+      openVideo(chapterId){
+            this.dialogVideoFormVisible = true
+            this.video.title=''
+            this.video.sort=0
+            this.video.free=0
+            this.video.videoSourceId=''
+      },
       // =================章节操作=======================
       //删除章节
       removeChapter(chapterId){
