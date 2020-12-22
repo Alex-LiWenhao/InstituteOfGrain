@@ -22,5 +22,11 @@ export default {
             url: `/eduservice/video/${videoId}`,
             method: 'delete'
         })
+    },
+    getVideoById(videoId) { 
+        return request({
+            url: `/eduservice/video/${videoId}`,
+            method: 'get'
+        })
     }
 }

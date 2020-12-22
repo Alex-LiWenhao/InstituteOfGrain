@@ -34,7 +34,7 @@
                     :key="video.id">
                     <p>{{ video.title }}
                 <span class="acts">
-                    <el-button style="" type="text">编辑</el-button>
+                    <el-button style="" type="text" @click="openEditVideo(video.id)">编辑</el-button>
                     <el-button type="text" @click="removeVideo(video.id)">删除</el-button>
                 </span>
                     </p>
@@ -76,9 +76,9 @@
           <el-input-number v-model="video.sort" :min="0" controls-position="right"/>
         </el-form-item>
         <el-form-item label="是否免费">
-          <el-radio-group v-model="video.free">
-            <el-radio :label="true">免费</el-radio>
-            <el-radio :label="false">默认</el-radio>
+          <el-radio-group v-model="video.isFree">
+            <el-radio :label="0">收费</el-radio>
+            <el-radio :label="1">免费</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="上传视频">
@@ -111,7 +111,7 @@ export default {
             video: {
                 title: '',
                 sort: 0,
-                free: 0,
+                isFree: 0,
                 videoSourceId: ''
             }
         }
@@ -124,8 +124,40 @@ export default {
     },
     methods:{
       //==================小结操作=======================
+      //删除小结
+      removeVideo(videoId){
+        video.deleteVideo(videoId).then(response=>{
+           //提示
+          this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                  })
+          //刷新页面
+          this.getChapterVideo()
+        })
+      },
+      //打开修改小结的模态框
+      openEditVideo(videoId){
+        //打开模态框
+        this.dialogVideoFormVisible=true
+        //查询video然后放入信息
+        video.getVideoById(videoId).then(response=>{
+            this.video = response.data.video
+        })
+      },
+      //修改小结
       saveOrUpdateVideo(){
-        
+        video.updateVideo(this.video).then(response=>{
+           //提示
+          this.$message({
+                    type: 'success',
+                    message: '修改成功!'
+                  })
+          //关闭模态框
+          this.dialogVideoFormVisible=false
+          //刷新页面
+          this.getChapterVideo()
+        })
       },
       openVideo(chapterId){
             this.dialogVideoFormVisible = true

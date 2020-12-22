@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
  * @since 2020-12-01
  */
 @RestController
-@RequestMapping("/eduservice/edu-video")
+@RequestMapping("/eduservice/video")
+@CrossOrigin
 public class EduVideoController {
 
     @Autowired(required = true)
@@ -57,9 +58,22 @@ public class EduVideoController {
     * @return com.alex.commonutils.R
     */
     @PutMapping("updateVideo")
-    public R updateVideo(@PathVariable EduVideo video){
+    public R updateVideo(@RequestBody EduVideo video){
         videoService.updateById(video);
         return R.ok();
+    }
+
+    /**
+    *功能描述 通过videoID去获取video信息
+    * @author Alex
+    * @Date 2020/12/22 9:33
+    * @param videoId
+    * @return com.alex.commonutils.R
+    */
+    @GetMapping("{videoId}")
+    public R getVideoById(@PathVariable String videoId){
+        EduVideo video = videoService.getById(videoId);
+        return R.ok().data("video",video);
     }
     
 
