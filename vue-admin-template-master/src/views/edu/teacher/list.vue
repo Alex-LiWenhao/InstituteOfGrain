@@ -130,7 +130,7 @@ import teacher from '@/api/edu/teacher'
           this.getList();
           }
           )
-          
+  
         })
 
         }

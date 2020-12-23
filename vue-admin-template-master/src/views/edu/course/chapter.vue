@@ -245,7 +245,7 @@ export default {
         },
         next() {
             //跳转到第二步
-            this.$router.push({path:'/edu/course/publish/1'})
+            this.$router.push({path:'/edu/course/publish/'+this.courseId})
         }
     }
 }
