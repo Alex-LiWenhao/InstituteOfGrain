@@ -66,7 +66,7 @@ public class EduTeacherController {
     *功能描述 根据传送过来的每页记录数和当前页码进行查询
     * @author Alex
     * @Date 2020/12/18 23:04
-    * @param [page, limit]
+    * @param page, limit
     * @return com.alex.commonutils.R
     */
     @ApiOperation(value = "分页讲师列表")
@@ -110,7 +110,7 @@ public class EduTeacherController {
     *功能描述 新增讲师
     * @author Alex
     * @Date 2020/12/18 23:06
-    * @param [eduTeacher]
+    * @param eduTeacher
     * @return com.alex.commonutils.R
     */
     @ApiOperation(value = "讲师新增模块")

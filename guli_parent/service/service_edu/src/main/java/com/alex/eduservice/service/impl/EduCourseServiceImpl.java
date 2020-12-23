@@ -3,6 +3,7 @@ package com.alex.eduservice.service.impl;
 import com.alex.eduservice.entity.EduCourse;
 import com.alex.eduservice.entity.EduCourseDescription;
 import com.alex.eduservice.entity.vo.CourseInfoVo;
+import com.alex.eduservice.entity.vo.CoursePublishVo;
 import com.alex.eduservice.mapper.EduCourseMapper;
 import com.alex.eduservice.service.EduCourseDescriptionService;
 import com.alex.eduservice.service.EduCourseService;
@@ -93,5 +94,18 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         eduCourseDescription.setDescription(courseInfoVo.getDescription());
         eduCourseDescription.setId(courseInfoVo.getId());
         descriptionService.updateById(eduCourseDescription);
+    }
+
+    /**
+    *功能描述 根据课程ID获取道发布信息
+    * @author Alex
+    * @Date 2020/12/23 11:23
+    * @param courseId
+    * @return com.alex.eduservice.entity.vo.CoursePublishVo
+    */
+    @Override
+    public CoursePublishVo selectCoursePublishVoById(String courseId) {
+        CoursePublishVo coursePublishVo = baseMapper.selectCoursePublishVoById(courseId);
+        return coursePublishVo;
     }
 }

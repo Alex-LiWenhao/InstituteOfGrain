@@ -2,6 +2,7 @@ package com.alex.eduservice.service;
 
 import com.alex.eduservice.entity.EduCourse;
 import com.alex.eduservice.entity.vo.CourseInfoVo;
+import com.alex.eduservice.entity.vo.CoursePublishVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -38,4 +39,13 @@ public interface EduCourseService extends IService<EduCourse> {
     * @return void
     */
     void updateCourseInfo(CourseInfoVo courseInfoVo);
+
+    /**
+    *功能描述 根据课程ID获取道发布信息
+    * @author Alex
+    * @Date 2020/12/23 11:22
+    * @param courseId
+    * @return com.alex.eduservice.entity.vo.CoursePublishVo
+    */
+    public CoursePublishVo selectCoursePublishVoById(String courseId);
 }
