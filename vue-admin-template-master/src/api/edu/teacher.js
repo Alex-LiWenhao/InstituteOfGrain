@@ -7,6 +7,7 @@ export default {
             url: `/eduservice/teacher/pageTeacherCondition/${current}/${limit}`,
             method: 'post',
             data: teacherQuery
+
         })
     },
     addTeacher(eduTeacher) { 

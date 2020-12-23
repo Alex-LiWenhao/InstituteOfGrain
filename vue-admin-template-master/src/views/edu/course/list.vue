@@ -14,7 +14,7 @@
       </el-form-item>
 
       <el-button type="default" @click="resetData()">清空</el-button>
-      <el-button type="primary" icon="el-icon-search" @click="getList()">查询</el-button>
+      <el-button type="primary" icon="el-icon-search" @click="getAllcourseList()">查询</el-button>
       
     </el-form>
 <!-- 表格 -->
@@ -47,7 +47,7 @@
             <el-button type="primary" size="mini" icon="el-icon-edit">编辑课程基本信息</el-button>
           </router-link>
           <router-link :to="'/teacher/edit/'+scope.row.id">
-            <el-button type="primary" size="mini" icon="el-icon-edit">编辑课程大纲息</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit">编辑课程大纲信息</el-button>
           </router-link>
           <el-button type="danger" size="mini" icon="el-icon-delete" @click="removeDataById(scope.row.id)">删除课程信息</el-button>
         </template>
@@ -60,7 +60,7 @@
       :total="total"
       style="padding: 30px 0; text-align: center;"
       layout="total, prev, pager, next, jumper"
-      @current-change="getList"
+      @current-change="getAllcourseList"
     />
   </div>
 </template>
@@ -80,10 +80,20 @@ import course from '@/api/edu/course'
       this.getAllcourseList()
     },
     methods:{
+      //清空条件
+      resetData(){
+        this.courseQuery={}
+        this.getAllcourseList()
+      },
+    //条件查询所有数据
       getAllcourseList(page = 1){
         this.page = page
-        course.findAll().then(response=>{
-          this.list = response.data.items
+        course.findAll(this.page,this.limit,this.courseQuery).then(response=>{
+          this.total = response.data.total
+          this.list = response.data.rows
+          console.log(this.list)
+        }).catch(error=>{
+                 console.log(error)
         })
       }
        

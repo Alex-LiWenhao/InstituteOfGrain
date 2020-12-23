@@ -45,11 +45,12 @@ export default {
             method: 'put'
         })
     },
-    //查询所有课程
-    findAll() { 
+    //分页查询所有课程
+    findAll(current, limit, courseQuery) { 
         return request({
-            url: `/eduservice/course`,
-            method: 'get'
+            url: `/eduservice/course/pageCourseCondition/${current}/${limit}`,
+            method: 'post',
+            data: courseQuery
         })
     }
 }
