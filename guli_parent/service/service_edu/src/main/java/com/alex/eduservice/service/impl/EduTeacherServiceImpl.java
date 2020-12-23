@@ -25,7 +25,7 @@ public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeac
     *功能描述 条件查询讲师
     * @author Alex
     * @Date 2020/12/18 23:08
-    * @param [pageParam, teacherQuery]
+    * @param pageParam, teacherQuery
     * @return void
     */
     @Override

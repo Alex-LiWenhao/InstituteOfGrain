@@ -4,14 +4,18 @@ import com.alex.eduservice.entity.EduCourse;
 import com.alex.eduservice.entity.EduCourseDescription;
 import com.alex.eduservice.entity.vo.CourseInfoVo;
 import com.alex.eduservice.entity.vo.CoursePublishVo;
+import com.alex.eduservice.entity.vo.CourseQuery;
 import com.alex.eduservice.mapper.EduCourseMapper;
 import com.alex.eduservice.service.EduCourseDescriptionService;
 import com.alex.eduservice.service.EduCourseService;
 import com.alex.servicebase.AlexException;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -107,5 +111,32 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     public CoursePublishVo selectCoursePublishVoById(String courseId) {
         CoursePublishVo coursePublishVo = baseMapper.selectCoursePublishVoById(courseId);
         return coursePublishVo;
+    }
+
+    /**
+    *功能描述 课程条件查询模块
+    * @author Alex
+    * @Date 2020/12/23 22:40
+    * @param [page, courseQuery]
+    * @return void
+    */
+    @Override
+    public void courseQuery(Page<EduCourse> page, CourseQuery courseQuery) {
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("gmt_create");
+        if (courseQuery==null){
+            baseMapper.selectMapsPage(page, wrapper);
+            return;
+        }
+        String title = courseQuery.getTitle();
+        String status = courseQuery.getStatus();
+        if(!StringUtils.isEmpty(title)){
+            wrapper.like("title", title);
+        }
+        if (!StringUtils.isEmpty(status)){
+            wrapper.eq("status", status);
+        }
+
+        baseMapper.selectPage(page, wrapper);
     }
 }

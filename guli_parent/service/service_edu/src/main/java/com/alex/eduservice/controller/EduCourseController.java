@@ -5,11 +5,16 @@ import com.alex.commonutils.R;
 import com.alex.eduservice.entity.EduCourse;
 import com.alex.eduservice.entity.vo.CourseInfoVo;
 import com.alex.eduservice.entity.vo.CoursePublishVo;
+import com.alex.eduservice.entity.vo.CourseQuery;
 import com.alex.eduservice.service.EduCourseService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -89,6 +94,7 @@ public class EduCourseController {
     * @param id
     * @return com.alex.commonutils.R
     */
+    @ApiOperation(value = "根据ID去发布课程")
     @PutMapping("publishCourse/{id}")
     public R publishCourse(@PathVariable String id){
         EduCourse eduCourse = new EduCourse();
@@ -97,5 +103,43 @@ public class EduCourseController {
         eduCourseService.updateById(eduCourse);
         return R.ok();
     }
+
+    /**
+    *功能描述 所有课程列表
+    * @author Alex
+    * @Date 2020/12/23 21:46
+    * @param
+    * @return
+    */
+    @ApiOperation(value = "所有课程列表")
+    @GetMapping()
+    public R findAll(){
+        List<EduCourse> list = eduCourseService.list(null);
+        return R.ok().data("items",list);
+    }
+
+    /**
+    *功能描述 课程条件查询模块
+    * @author Alex
+    * @Date 2020/12/23 22:34
+    * @param current, limit, courseQuery
+    * @return com.alex.commonutils.R
+    */
+    @ApiOperation(value = "课程条件查询模块")
+    @PostMapping("pageCourseCondition/{current}/{limit}")
+    public R pageCourseCondition(
+            @ApiParam("当前页数")
+            @PathVariable Long current,
+            @ApiParam("多少行数据")
+            @PathVariable Long limit,
+            @ApiParam("条件查询对象")
+            @RequestBody(required = false) CourseQuery courseQuery){
+        Page<EduCourse> page = new Page<>(current, limit);
+        eduCourseService.courseQuery(page, courseQuery);
+        long total = page.getTotal();
+        List<EduCourse> records = page.getRecords();
+        return R.ok().data("total",total).data("rows",records);
+    }
+
 }
 

@@ -3,6 +3,8 @@ package com.alex.eduservice.service;
 import com.alex.eduservice.entity.EduCourse;
 import com.alex.eduservice.entity.vo.CourseInfoVo;
 import com.alex.eduservice.entity.vo.CoursePublishVo;
+import com.alex.eduservice.entity.vo.CourseQuery;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -48,4 +50,13 @@ public interface EduCourseService extends IService<EduCourse> {
     * @return com.alex.eduservice.entity.vo.CoursePublishVo
     */
     public CoursePublishVo selectCoursePublishVoById(String courseId);
+
+    /**
+    *功能描述 课程条件查询模块
+    * @author Alex
+    * @Date 2020/12/23 22:34
+    * @param [page, courseQuery]
+    * @return void
+    */
+    void courseQuery(Page<EduCourse> page, CourseQuery courseQuery);
 }
