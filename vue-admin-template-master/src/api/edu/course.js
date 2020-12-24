@@ -52,5 +52,12 @@ export default {
             method: 'post',
             data: courseQuery
         })
-    }
+    },
+    //根据课程ID删除课程相关内容
+    removeCourseByCourseId(courseId) { 
+        return request({
+            url: `/eduservice/course/${courseId}`,
+            method: 'delete'
+        })
+    },
 }

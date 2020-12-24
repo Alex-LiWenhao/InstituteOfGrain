@@ -80,6 +80,17 @@ import course from '@/api/edu/course'
       this.getAllcourseList()
     },
     methods:{
+      //根据课程ID去删除课程相关内容
+      removeDataById(courseId){
+          course.removeCourseByCourseId(courseId)
+                .then(response=>{
+                   this.$message({
+                      type: 'success',
+                      message: '删除成功!'
+                    });
+                    this.getAllcourseList()
+                })
+      },
       //清空条件
       resetData(){
         this.courseQuery={}
