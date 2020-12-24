@@ -141,5 +141,18 @@ public class EduCourseController {
         return R.ok().data("total",total).data("rows",records);
     }
 
+    /**
+    *功能描述 删除课程相关的内容
+    * @author Alex
+    * @Date 2020/12/24 23:00
+    * @param []
+    * @return com.alex.commonutils.R
+    */
+    @DeleteMapping("{courseId}")
+    public R removeCourse(@PathVariable String courseId){
+        eduCourseService.removeCourse(courseId);
+        return R.ok();
+    }
+
 }
 

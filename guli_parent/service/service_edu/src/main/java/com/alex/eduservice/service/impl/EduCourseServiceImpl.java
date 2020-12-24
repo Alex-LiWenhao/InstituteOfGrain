@@ -6,8 +6,10 @@ import com.alex.eduservice.entity.vo.CourseInfoVo;
 import com.alex.eduservice.entity.vo.CoursePublishVo;
 import com.alex.eduservice.entity.vo.CourseQuery;
 import com.alex.eduservice.mapper.EduCourseMapper;
+import com.alex.eduservice.service.EduChapterService;
 import com.alex.eduservice.service.EduCourseDescriptionService;
 import com.alex.eduservice.service.EduCourseService;
+import com.alex.eduservice.service.EduVideoService;
 import com.alex.servicebase.AlexException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -31,6 +33,13 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     //课程描述注入
     @Autowired
     private EduCourseDescriptionService descriptionService;
+    //课程小节注入
+    @Autowired
+    private EduVideoService eduVideoService;
+    //课程章节注入
+    @Autowired
+    private EduChapterService eduChapterService;
+
 
     /**
     *功能描述 添加课程基本信息的方法
@@ -117,7 +126,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     *功能描述 课程条件查询模块
     * @author Alex
     * @Date 2020/12/23 22:40
-    * @param [page, courseQuery]
+    * @param page, courseQuery
     * @return void
     */
     @Override
@@ -138,5 +147,27 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         }
 
         baseMapper.selectPage(page, wrapper);
+    }
+
+    /**
+    *功能描述 删除课程相关的内容
+    * @author Alex
+    * @Date 2020/12/24 23:17
+    * @param [courseId]
+    * @return void
+    */
+    @Override
+    public void removeCourse(String courseId) {
+        //根据课程ID删除小节
+        eduVideoService.removeVideoByCourseId(courseId);
+        //根据课程ID删除章节
+        eduChapterService.removeChapterByCourseId(courseId);
+        //根据课程ID删除简介
+        descriptionService.removeById(courseId);
+        //根据课程ID删除课程本身
+        int i = baseMapper.deleteById(courseId);
+        if (i==0){
+            throw new AlexException(20001, "删除失败");
+        }
     }
 }

@@ -59,4 +59,13 @@ public interface EduCourseService extends IService<EduCourse> {
     * @return void
     */
     void courseQuery(Page<EduCourse> page, CourseQuery courseQuery);
+
+    /**
+    *功能描述 删除课程相关的内容
+    * @author Alex
+    * @Date 2020/12/24 23:02
+    * @param [courseId]
+    * @return void
+    */
+    void removeCourse(String courseId);
 }
