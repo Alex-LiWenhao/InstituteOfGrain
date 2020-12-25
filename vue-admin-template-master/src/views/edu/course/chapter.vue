@@ -126,15 +126,23 @@ export default {
       //==================小结操作=======================
       //删除小结
       removeVideo(videoId){
-        video.deleteVideo(videoId).then(response=>{
-           //提示
-          this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                  })
-          //刷新页面
-          this.getChapterVideo()
-        })
+        this.$confirm('此操作将删除小节, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {  //点击确定，执行then方法
+                //调用删除的方法
+                video.deleteVideo(videoId)
+                    .then(response =>{//删除成功
+                    //提示信息
+                    this.$message({
+                        type: 'success',
+                        message: '删除小节成功!'
+                    });
+                    //刷新页面
+                    this.getChapterVideo()
+                })
+            }) //点击取消，执行catch方法
       },
       //打开修改小结的模态框
       openEditVideo(videoId){
@@ -145,13 +153,14 @@ export default {
             this.video = response.data.video
         })
       },
-      //修改小结
-      saveOrUpdateVideo(){
-        video.updateVideo(this.video).then(response=>{
+      addVideo(){
+        //设置课程id
+            this.video.courseId = this.courseId
+           video.addVideo(this.video).then(response=>{
            //提示
           this.$message({
                     type: 'success',
-                    message: '修改成功!'
+                    message: '添加成功!'
                   })
           //关闭模态框
           this.dialogVideoFormVisible=false
@@ -159,25 +168,36 @@ export default {
           this.getChapterVideo()
         })
       },
+      //修改小结
+      saveOrUpdateVideo(){
+       this.addVideo()
+      },
       openVideo(chapterId){
+            //弹框
             this.dialogVideoFormVisible = true
-            this.video.title=''
-            this.video.sort=0
-            this.video.free=0
-            this.video.videoSourceId=''
+            //设置章节id
+            this.video.chapterId = chapterId
       },
       // =================章节操作=======================
       //删除章节
       removeChapter(chapterId){
-        chapter.removeById(chapterId).then(response=>{
-          //提示
-          this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                  })
-          //刷新页面
-          this.getChapterVideo()
-        })
+        this.$confirm('此操作将删除章节, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {  //点击确定，执行then方法
+                //调用删除的方法
+                chapter.removeById(chapterId)
+                    .then(response =>{//删除成功
+                    //提示信息
+                    this.$message({
+                        type: 'success',
+                        message: '删除章节成功!'
+                    });
+                    //刷新页面
+                    this.getChapterVideo()
+                })
+            }) //点击取消，执行catch方法
       },
       //修改章节弹框处理
       openEditChatper(chapterId){
