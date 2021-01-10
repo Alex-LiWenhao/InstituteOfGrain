@@ -17,7 +17,7 @@
       <el-button type="primary" icon="el-icon-search" @click="getAllcourseList()">查询</el-button>
       
     </el-form>
-<!-- 表格 -->
+<!--表格-->
     <el-table
       :data="list"
       border

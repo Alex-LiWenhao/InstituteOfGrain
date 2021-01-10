@@ -82,7 +82,25 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="上传视频">
-          <!-- TODO -->
+              <el-upload
+                :on-success="handleVodUploadSuccess"
+                :on-remove="handleVodRemove"
+                :before-remove="beforeVodRemove"
+                :on-exceed="handleUploadExceed"
+                :file-list="fileList"
+                :action="BASE_API+'/eduvod/video/uploadVideo'"
+                :limit="1"
+                class="upload-demo">
+            <el-button size="small" type="primary">上传视频</el-button>
+            <el-tooltip placement="right-end">
+                <div slot="content">最大支持1G，<br>
+                    支持3GP、ASF、AVI、DAT、DV、FLV、F4V、<br>
+                    GIF、M2T、M4V、MJ2、MJPEG、MKV、MOV、MP4、<br>
+                    MPE、MPG、MPEG、MTS、OGG、QT、RM、RMVB、<br>
+                    SWF、TS、VOB、WMV、WEBM 等视频格式上传</div>
+                <i class="el-icon-question"/>
+            </el-tooltip>
+            </el-upload>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -101,6 +119,7 @@ export default {
         return {
             saveBtnDisabled:false,
             chapterVideoList:[],
+            BASE_API: process.env.BASE_API, // 接口API地址
             courseId:'',
             dialogChapterFormVisible: false, //是否显示章节表单
             dialogVideoFormVisible: false,//是否显示小节表单
@@ -112,8 +131,10 @@ export default {
                 title: '',
                 sort: 0,
                 isFree: 0,
-                videoSourceId: ''
-            }
+                videoSourceId: '',
+                videoOriginalName: ''
+            },
+            fileList: []//上传文件列表
         }
     },
     created() {
@@ -123,6 +144,13 @@ export default {
         }
     },
     methods:{
+      //===================视频操作=====================
+      handleVodUploadSuccess(response, file, fileList){
+          this.video.videoSourceId = response.data.videoId
+          this.video.videoOriginalName = file.name
+      },handleUploadExceed(){
+          this.$message.warning('想要重新上传视频，请先删除已上传的视频')
+      },
       //==================小结操作=======================
       //删除小结
       removeVideo(videoId){
@@ -173,6 +201,10 @@ export default {
        this.addVideo()
       },
       openVideo(chapterId){
+        //将video信息设为空
+            this.video = {}
+        //将上传列表设置为空
+
             //弹框
             this.dialogVideoFormVisible = true
             //设置章节id
