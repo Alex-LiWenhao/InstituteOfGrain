@@ -1,14 +1,18 @@
 package com.alex.vod.controller;
 
 import com.alex.commonutils.R;
+import com.alex.servicebase.AlexException;
 import com.alex.vod.service.VodService;
+import com.alex.vod.utils.ConstantVideoPropertiesUtil;
+import com.alex.vod.utils.InitObject;
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
+import com.aliyuncs.vod.model.v20170321.DeleteVideoResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -39,6 +43,31 @@ public class VodController {
         String videoId = vodService.uploadVideo(file);
         return R.ok().data("videoId",videoId);
     }
+
+    /**
+    *功能描述 根据视频ID去删除视频
+    * @author Alex
+    * @Date 2021/1/15 21:19
+    * @param [id]
+    * @return com.alex.commonutils.R
+    */
+    @DeleteMapping("removeAlyVideo/{id}")
+    public R deleteAlyVideo(@PathVariable String id){
+        try {
+            //初试化对象
+            DefaultAcsClient defaultAcsClient = InitObject.initVodClient(ConstantVideoPropertiesUtil.ACCESS_KEY_ID, ConstantVideoPropertiesUtil.ACCESS_KEY_SECRET);
+            //获取request对象
+            DeleteVideoRequest request = new DeleteVideoRequest();
+            request.setVideoIds(id);
+            DeleteVideoResponse response = defaultAcsClient.getAcsResponse(request);
+            return R.ok();
+        } catch (ClientException e) {
+            e.printStackTrace();
+            throw  new AlexException(20001, "删除视频失败");
+        }
+    }
+
+
 
 
 }
