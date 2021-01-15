@@ -145,6 +145,23 @@ export default {
     },
     methods:{
       //===================视频操作=====================
+      handleVodRemove(){//删除视频时调用
+        video.removeVideoByid(this.video.videoSourceId).then(response=>{
+           //提示信息
+            this.$message({
+                type: 'success',
+                message: '删除视屏成功!'
+            });
+            //将fileList设置为空
+            fileList=[]
+            this.video.videoSourceId = ''
+            this.video.videoOriginalName=''
+        })
+      },
+      beforeVodRemove(file, fileList){//删除视频之前调用
+        return this.$confirm(`确定移除 ${ file.name }？`);
+      },
+
       handleVodUploadSuccess(response, file, fileList){
           this.video.videoSourceId = response.data.videoId
           this.video.videoOriginalName = file.name
