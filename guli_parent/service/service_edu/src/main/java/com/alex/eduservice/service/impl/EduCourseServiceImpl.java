@@ -1,7 +1,9 @@
 package com.alex.eduservice.service.impl;
 
+import com.alex.eduservice.client.VodClient;
 import com.alex.eduservice.entity.EduCourse;
 import com.alex.eduservice.entity.EduCourseDescription;
+import com.alex.eduservice.entity.EduVideo;
 import com.alex.eduservice.entity.vo.CourseInfoVo;
 import com.alex.eduservice.entity.vo.CoursePublishVo;
 import com.alex.eduservice.entity.vo.CourseQuery;
@@ -18,6 +20,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
  * <p>
@@ -39,6 +43,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     //课程章节注入
     @Autowired
     private EduChapterService eduChapterService;
+
 
 
     /**
@@ -153,7 +158,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     *功能描述 删除课程相关的内容
     * @author Alex
     * @Date 2020/12/24 23:17
-    * @param [courseId]
+    * @param courseId
     * @return void
     */
     @Override

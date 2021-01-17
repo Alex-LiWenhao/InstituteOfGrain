@@ -2,9 +2,11 @@ package com.alex.eduservice.controller;
 
 
 import com.alex.commonutils.R;
+import com.alex.eduservice.client.VodClient;
 import com.alex.eduservice.entity.EduVideo;
 import com.alex.eduservice.service.EduVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -23,6 +25,9 @@ public class EduVideoController {
     @Autowired(required = true)
     private EduVideoService videoService;
 
+    @Autowired
+    private VodClient vodClient;
+
     /**
     *功能描述 添加小节
     * @author Alex
@@ -38,7 +43,7 @@ public class EduVideoController {
 
 
     /**
-    *功能描述 删除小节TODO 后面这个方法需要完善：删除小节时候，同时把里面视频删除
+    *功能描述 删除小节时候，同时把里面视频删除
     * @author Alex
     * @Date 2020/12/20 23:15
     * @param id
@@ -46,6 +51,11 @@ public class EduVideoController {
     */
     @DeleteMapping("{id}")
     public R deleteVideo(@PathVariable String id){
+        EduVideo eduVideo = videoService.getById(id);
+        String sourceId = eduVideo.getVideoSourceId();
+        if (!StringUtils.isEmpty(sourceId)){
+            vodClient.deleteAlyVideo(sourceId);
+        }
         videoService.removeById(id);
         return R.ok();
     }

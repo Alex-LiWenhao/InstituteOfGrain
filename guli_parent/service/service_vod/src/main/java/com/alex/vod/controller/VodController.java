@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * @ClassName VodController
  * @Description TODO : 操作video的接口
@@ -65,6 +67,19 @@ public class VodController {
             e.printStackTrace();
             throw  new AlexException(20001, "删除视频失败");
         }
+    }
+
+    /**
+    *功能描述 根据ID删除阿里云里面的视屏
+    * @author Alex
+    * @Date 2021/1/17 20:28
+    * @param videoListId
+    * @return com.alex.commonutils.R
+    */
+    @DeleteMapping("deleteBatch")
+    public R deleteBatch(@RequestParam("videoListId") List<String> videoListId){
+            vodService.removeMoreVideo(videoListId);
+        return R.ok();
     }
 
 

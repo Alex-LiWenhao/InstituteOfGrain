@@ -2,6 +2,8 @@ package com.alex.vod.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
 *功能描述 操作video的接口
 * @author Alex
@@ -18,4 +20,6 @@ public interface VodService {
     * @return java.lang.String
     */
     String uploadVideo(MultipartFile file);
+
+    void removeMoreVideo(List<String> videoListId);
 }

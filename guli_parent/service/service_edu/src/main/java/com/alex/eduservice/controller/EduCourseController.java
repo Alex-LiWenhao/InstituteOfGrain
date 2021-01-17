@@ -145,7 +145,7 @@ public class EduCourseController {
     *功能描述 删除课程相关的内容
     * @author Alex
     * @Date 2020/12/24 23:00
-    * @param []
+    * @param
     * @return com.alex.commonutils.R
     */
     @DeleteMapping("{courseId}")
