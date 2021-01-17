@@ -153,19 +153,22 @@ export default {
                 message: '删除视屏成功!'
             });
             //将fileList设置为空
-            fileList=[]
+            this.fileList=[]
             this.video.videoSourceId = ''
             this.video.videoOriginalName=''
         })
       },
+      //删除视频之前调用该方法
       beforeVodRemove(file, fileList){//删除视频之前调用
         return this.$confirm(`确定移除 ${ file.name }？`);
       },
-
+    //上传视频成功之后调用该方法
       handleVodUploadSuccess(response, file, fileList){
           this.video.videoSourceId = response.data.videoId
           this.video.videoOriginalName = file.name
-      },handleUploadExceed(){
+      },
+      //
+      handleUploadExceed(){
           this.$message.warning('想要重新上传视频，请先删除已上传的视频')
       },
       //==================小结操作=======================
@@ -220,10 +223,10 @@ export default {
       openVideo(chapterId){
         //将video信息设为空
             this.video = {}
-        //将上传列表设置为空
-
             //弹框
             this.dialogVideoFormVisible = true
+            //将上传列表设置为空
+            this.fileList = []
             //设置章节id
             this.video.chapterId = chapterId
       },
